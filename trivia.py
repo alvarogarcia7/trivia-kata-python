@@ -6,13 +6,13 @@ class Game:
         self.places = [0] * 6
         self.purses = [0] * 6
         self.in_penalty_box = [0] * 6
+        self.current_player = 0
 
         self.pop_questions = []
         self.science_questions = []
         self.sports_questions = []
         self.rock_questions = []
 
-        self.current_player = 0
         self.is_getting_out_of_penalty_box = False
 
         for i in range(50):
