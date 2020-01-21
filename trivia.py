@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+class Players:
+    def __init__(self):
+        self.players = []
+        self.places = [0] * 6
+        self.purses = [0] * 6
+        self.in_penalty_box = [0] * 6
+        self.current_player = 0
+
 class Game:
     def __init__(self):
         self.players = []
@@ -43,36 +51,39 @@ class Game:
         return len(self.players)
 
     def roll(self, roll):
-        print("%s is the current player" % self.players[self.current_player])
+        print("%s is the current player" % self.get_current_player())
         print("They have rolled a %s" % roll)
 
         if self.in_penalty_box[self.current_player]:
             if roll % 2 != 0:
                 self.is_getting_out_of_penalty_box = True
 
-                print("%s is getting out of the penalty box" % self.players[self.current_player])
+                print("%s is getting out of the penalty box" % self.get_current_player())
                 self.places[self.current_player] = self.places[self.current_player] + roll
                 if self.places[self.current_player] > 11:
                     self.places[self.current_player] = self.places[self.current_player] - 12
 
-                print(self.players[self.current_player] + \
+                print(self.get_current_player() + \
                             '\'s new location is ' + \
-                            str(self.places[self.current_player]))
+                      str(self.places[self.current_player]))
                 print("The category is %s" % self._current_category)
                 self._ask_question()
             else:
-                print("%s is not getting out of the penalty box" % self.players[self.current_player])
+                print("%s is not getting out of the penalty box" % self.get_current_player())
                 self.is_getting_out_of_penalty_box = False
         else:
             self.places[self.current_player] = self.places[self.current_player] + roll
             if self.places[self.current_player] > 11:
                 self.places[self.current_player] = self.places[self.current_player] - 12
 
-            print(self.players[self.current_player] + \
+            print(self.get_current_player() + \
                         '\'s new location is ' + \
-                        str(self.places[self.current_player]))
+                  str(self.places[self.current_player]))
             print("The category is %s" % self._current_category)
             self._ask_question()
+
+    def get_current_player(self):
+        return self.players[self.current_player]
 
     def _ask_question(self):
         if self._current_category == 'Pop': print(self.pop_questions.pop(0))
@@ -98,9 +109,9 @@ class Game:
             if self.is_getting_out_of_penalty_box:
                 print('Answer was correct!!!!')
                 self.purses[self.current_player] += 1
-                print(self.players[self.current_player] + \
+                print(self.get_current_player() + \
                     ' now has ' + \
-                    str(self.purses[self.current_player]) + \
+                      str(self.purses[self.current_player]) + \
                     ' Gold Coins.')
 
                 winner = self._did_player_win()
@@ -119,9 +130,9 @@ class Game:
 
             print("Answer was corrent!!!!")
             self.purses[self.current_player] += 1
-            print(self.players[self.current_player] + \
+            print(self.get_current_player() + \
                 ' now has ' + \
-                str(self.purses[self.current_player]) + \
+                  str(self.purses[self.current_player]) + \
                 ' Gold Coins.')
 
             winner = self._did_player_win()
@@ -132,7 +143,7 @@ class Game:
 
     def wrong_answer(self):
         print('Question was incorrectly answered')
-        print(self.players[self.current_player] + " was sent to the penalty box")
+        print(self.get_current_player() + " was sent to the penalty box")
         self.in_penalty_box[self.current_player] = True
 
         self.current_player += 1
