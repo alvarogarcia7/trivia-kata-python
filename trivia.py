@@ -42,7 +42,7 @@ class Game:
         self.in_penalty_box[self.how_many_players] = False
 
         print(player_name + " was added")
-        print("They are player number %s" % len(self.players))
+        print("They are player number %s" % self.how_many_players)
 
         return True
 
