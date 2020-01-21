@@ -14,9 +14,6 @@ class Players:
     def get_current(self):
         return self.players[0]
 
-    def next_for_mathematicians(self):
-        self.current_player_index = (self.current_player_index + 1) % self.count()
-
     def next_for_programmers(self):
         self.current_player_index += 1
         self.wrap_position_if_necessary()
@@ -29,18 +26,24 @@ class Players:
         return self.current_player_index == self.count()
 
     def next(self):
-        self.next_for_clever_programmers()
+        self.current_player_index += 1
+        self.wrap_position_if_necessary()
 
-    ## remove the first element and put it in the end
-    def next_for_clever_programmers(self):
+
+class MathematicianPlayers(Players):
+    def next(self):
+        self.current_player_index = (self.current_player_index + 1) % self.count()
+
+class ProgrammersPlayers(Players):
+    def next(self):
         temporary = self.players[0]
         self.players = self.players[1:]
         self.players.append(temporary)
 
 
 class Game:
-    def __init__(self):
-        self.players_object = Players()
+    def __init__(self, players_variable):
+        self.players_object = players_variable
         self.players = []
         self.places = [0] * 6
         self.purses = [0] * 6
@@ -193,7 +196,7 @@ import sys
 if __name__ == '__main__':
     not_a_winner = False
 
-    game = Game()
+    game = Game(Players())
 
     if len(sys.argv) > 1:
         seed(sys.argv[1])

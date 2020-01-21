@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from trivia import Players
+from trivia import Players, Game, MathematicianPlayers, ProgrammersPlayers
 
 
 class TestPlayers(TestCase):
@@ -20,7 +20,7 @@ class TestPlayers(TestCase):
         players = Players()
         players.add_player("jj")
 
-        assert(players.get_current() == "jj")
+        assert (players.get_current() == "jj")
 
     def test_then_the_next_player_is_the_second(self):
         players = Players()
@@ -29,7 +29,7 @@ class TestPlayers(TestCase):
 
         players.next()
 
-        assert(players.get_current() == "second")
+        assert (players.get_current() == "second")
 
     def test_wrap_the_players_when_going_past_the_last_one_when(self):
         players = Players()
@@ -40,3 +40,13 @@ class TestPlayers(TestCase):
         players.next()
 
         assert (players.get_current() == "first")
+
+
+class TestGame(TestCase):
+
+    def test_game_can_accept_a_MathematicianPlayers(self):
+        players = MathematicianPlayers()
+        Game(players).add("Chet")
+
+    def test_game_can_accept_a_ProgrammersPlayers(self):
+        Game(ProgrammersPlayers()).add("Chet")
