@@ -3,16 +3,33 @@
 class Players:
     def __init__(self):
         self.players = []
-        self.places = [0] * 6
-        self.purses = [0] * 6
-        self.in_penalty_box = [0] * 6
-        self.current_player = 0
+        self.current_player_index = 0
 
     def add_player(self, player_name):
         self.players.append(player_name)
 
     def count(self):
         return len(self.players)
+
+    def get_current(self):
+        return self.players[self.current_player_index]
+
+    def next_for_mathematicians(self):
+        self.current_player_index = (self.current_player_index + 1) % self.count()
+
+    def next_for_programmers(self):
+        self.current_player_index += 1
+        self.wrap_position_if_necessary()
+
+    def wrap_position_if_necessary(self):
+        if self._has_reached_the_end():
+            self.current_player_index = 0
+
+    def _has_reached_the_end(self):
+        return self.current_player_index == self.count()
+
+    def next(self):
+        self.next_for_programmers()
 
 
 class Game:
