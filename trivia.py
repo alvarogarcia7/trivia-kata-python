@@ -11,6 +11,9 @@ class Players:
     def add_player(self, player_name):
         self.players.append(player_name)
 
+    def count(self):
+        return len(self.players)
+
 
 class Game:
     def __init__(self):
@@ -54,7 +57,7 @@ class Game:
 
     @property
     def how_many_players(self):
-        return len(self.players)
+        return self.players_object.count()
 
     def roll(self, roll):
         print("%s is the current player" % self.get_current_player())
