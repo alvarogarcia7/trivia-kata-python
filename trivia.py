@@ -12,7 +12,7 @@ class Players:
         return len(self.players)
 
     def get_current(self):
-        return self.players[self.current_player_index]
+        return self.players[0]
 
     def next_for_mathematicians(self):
         self.current_player_index = (self.current_player_index + 1) % self.count()
@@ -29,7 +29,13 @@ class Players:
         return self.current_player_index == self.count()
 
     def next(self):
-        self.next_for_programmers()
+        self.next_for_clever_programmers()
+
+    ## remove the first element and put it in the end
+    def next_for_clever_programmers(self):
+        temporary = self.players[0]
+        self.players = self.players[1:]
+        self.players.append(temporary)
 
 
 class Game:
