@@ -1,3 +1,5 @@
 /.idea/
 /venv/
 /tmp/actual_*.txt
+/data/
+
